@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Item from './Item';
-import Wrapper from './Wrapper';
+import Item from './Item'
+import Wrapper from './Wrapper'
 
-function ListItem(props) {
+function ListItem (props) {
   return (
-    <Wrapper>
+    <Wrapper className={props.active ? 'active' : ''}>
       <Item>{props.item}</Item>
     </Wrapper>
-  );
+  )
 }
 
 ListItem.propTypes = {
-  item: PropTypes.any,
-};
+  item: PropTypes.any
+}
 
-export default ListItem;
+export default ListItem

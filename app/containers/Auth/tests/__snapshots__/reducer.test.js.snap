@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authReducer clears data from the reducer on reload  1`] = `
+Object {
+  "email": "",
+  "emailError": null,
+  "error": null,
+  "loading": false,
+  "password": "",
+  "resetError": null,
+  "resetPasswordError": null,
+  "resetReqResponse": null,
+  "resetResponse": null,
+  "resetSuccess": false,
+  "sessionData": Object {},
+  "showInviteSuccess": false,
+}
+`;
+
+exports[`authReducer handles login request failure 1`] = `
+Object {
+  "email": "",
+  "emailError": null,
+  "error": null,
+  "loading": true,
+  "password": "",
+  "resetPasswordError": null,
+  "resetReqResponse": null,
+  "resetResponse": null,
+  "resetSuccess": false,
+  "sessionData": Object {},
+  "showInviteSuccess": false,
+}
+`;
+
+exports[`authReducer handles login request success 1`] = `
+Object {
+  "email": "",
+  "emailError": null,
+  "error": null,
+  "loading": true,
+  "password": "",
+  "resetPasswordError": null,
+  "resetReqResponse": null,
+  "resetResponse": null,
+  "resetSuccess": false,
+  "sessionData": Object {
+    "authResponse": Object {
+      "auth_token": "123123213",
+    },
+  },
+  "showInviteSuccess": false,
+}
+`;
+
+exports[`authReducer handles the update field action 1`] = `
+Object {
+  "email": "test@test.com",
+  "emailError": null,
+  "error": null,
+  "loading": false,
+  "password": "",
+  "resetPasswordError": null,
+  "resetReqResponse": null,
+  "resetResponse": null,
+  "resetSuccess": false,
+  "sessionData": Object {},
+  "showInviteSuccess": false,
+}
+`;
+
+exports[`authReducer responds to default action 1`] = `
+Object {
+  "email": "",
+  "error": null,
+  "loading": false,
+  "password": "",
+  "resetPasswordError": null,
+  "resetReqResponse": null,
+  "resetResponse": null,
+  "resetSuccess": false,
+  "sessionData": Object {},
+  "showInviteSuccess": false,
+}
+`;
+
+exports[`authReducer returns the initial state 1`] = `
+Object {
+  "email": "",
+  "error": null,
+  "loading": false,
+  "password": "",
+  "resetPasswordError": null,
+  "resetReqResponse": null,
+  "resetResponse": null,
+  "resetSuccess": false,
+  "sessionData": Object {},
+  "showInviteSuccess": false,
+}
+`;

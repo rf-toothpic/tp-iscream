@@ -1,0 +1,18 @@
+/*
+ * Copyright (c) 2019 OralEye Ltd.
+ */
+
+.success-toast {
+  background-color: var(--primary) !important;
+  color:white;
+}
+
+.error-toast {
+  background-color: var(--pink) !important;
+  color:white;
+}
+
+.info-toast {
+  background-color: var(--dark) !important;
+  color:white;
+}

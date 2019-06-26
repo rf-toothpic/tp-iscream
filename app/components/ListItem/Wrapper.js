@@ -11,6 +11,10 @@ const Wrapper = styled.li`
   &:first-child {
     border-top: none;
   }
+  
+  &.active {
+    background: blue;
+  }
 `;
 
 export default Wrapper;

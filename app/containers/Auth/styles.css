@@ -1,0 +1,88 @@
+.cardContainer {
+  /*height: 100vh;*/
+  /*width: 100vw;*/
+}
+
+.loginCard {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+}
+
+.formContainer {
+  opacity: 1;
+  max-width: 680px;
+  margin:0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.innerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input {
+  max-width: 365px;
+  margin: 16px 0 !important;
+}
+
+.button {
+  color: #eeeeee !important;
+  margin-top: 16px;
+}
+
+.resetButton {
+  margin-top: 20px !important;
+  color: var(--pink) !important;
+  float: left;
+  text-align: left;
+  text-transform: capitalize !important;
+}
+
+.loadingContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.logo {
+  width: 240px;
+  height: 169px;
+  margin: 40px auto;
+}
+
+.loginButton {
+  text-transform: capitalize;
+}
+
+.instructions {
+  width: 365px;
+  margin-bottom: 20px;
+}
+
+.disabled {
+  background-color: #9d9eab;
+  cursor: not-allowed;
+}
+
+.exclamation {
+  background-color: var(--pink);
+  width: 87px;
+  height: 87px;
+  color: white;
+  font-size: 60px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 87px;
+  margin: 30px auto;
+}

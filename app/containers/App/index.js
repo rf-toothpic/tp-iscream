@@ -6,45 +6,81 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import PrivateRoute from 'components/PrivateRoute'
+import Auth from 'containers/Auth'
+// import makeSelectAuth from 'containers/Auth/selectors'
+// import Ballot from 'containers/Ballot'
+import Entry from 'containers/Entry'
+import Leaderboard from 'containers/Leaderboard'
+import Logout from 'containers/Logout'
 
-import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import React, { useEffect } from 'react'
+import { Helmet } from 'react-helmet'
+// import { connect } from 'react-redux'
+// import { createStructuredSelector } from 'reselect'
+import styled from 'styled-components'
+import { Switch, Route } from 'react-router-dom'
 
-import GlobalStyle from '../../global-styles';
+import NotFoundPage from 'containers/NotFoundPage/Loadable'
+import Footer from 'components/Footer'
+import { isAuthenticated } from 'utils/localstorage'
+
+import { useInjectSaga } from 'utils/injectSaga'
+
+// import { fetchUser } from 'containers/Auth/actions'
+
+import GlobalStyle from '../../global-styles'
+
+import authSaga from 'containers/Auth/saga'
 
 const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
+  width: 100%;
   margin: 0 auto;
   display: flex;
   min-height: 100%;
-  padding: 0 16px;
+  padding: 0;
   flex-direction: column;
-`;
+`
 
-export default function App() {
+export function App () {
+  useInjectSaga({ key: 'auth', saga: authSaga })
+  // useEffect(() => {
+  //   fetchUser()
+  // }, [user])
+
   return (
     <AppWrapper>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate='Toothpic Voting'
+        defaultTitle='Toothpic Voting'
       >
-        <meta name="description" content="A React.js Boilerplate application" />
+        <meta name='description' content='Toothpic Voting' />
       </Helmet>
-      <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
-        <Route path="" component={NotFoundPage} />
+        <Route exact path='/logout' component={Logout} />
+        <Route exact path='/login' component={Auth} />
+        <Route exact path='/signup' component={Auth} />
+        <Route exact path='/account' component={Auth} />
+        <PrivateRoute exact path='/leaderboard' component={Leaderboard} isAuthenticated={isAuthenticated()} />
+        {/* <PrivateRoute exact path='/ballot/:ballotId' component={Ballot} isAuthenticated={isAuthenticated()} /> */}
+        <PrivateRoute exact path='/entry/:id' component={Entry} isAuthenticated={isAuthenticated()} />
+        <PrivateRoute exact path='/entry' component={Entry} isAuthenticated={isAuthenticated()} />
+        <Route exact path='/' component={Auth} />
+        <Route path='' component={NotFoundPage} />
       </Switch>
       <Footer />
       <GlobalStyle />
     </AppWrapper>
-  );
+  )
 }
+
+// const mapStateToProps = createStructuredSelector({
+//   auth: makeSelectAuth()
+// })
+//
+// function mapDispatchToProps (dispatch) {
+//   return { fetchUser: () => dispatch(fetchUser()) }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
