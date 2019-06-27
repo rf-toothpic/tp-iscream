@@ -47,7 +47,7 @@ export function Leaderboard ( ) {
     setType(t)
   }
 
-  const [entries] = useEntriesWithUsersList({})
+  const [entries] = useEntriesList({})
 
   return (
     <div>

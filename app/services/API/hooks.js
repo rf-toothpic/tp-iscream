@@ -1,6 +1,13 @@
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { fetchUsers, getEntries, getVotes, fetchDietaryRequirements, fetchUser } from 'services/API/index'
+import {
+  fetchUsers,
+  getEntries,
+  getVotes,
+  fetchDietaryRequirements,
+  fetchUser,
+  getEntryVotes,
+} from 'services/API/index'
 import { getUserId } from 'utils/localstorage'
 
 const REFRESH_TIME = 10000
@@ -34,8 +41,9 @@ export const useEntriesList = ({ sortBy = 'name', paused = true }) => {
 }
 
 export const useVotesList = (id, { sortBy = 'name', paused = true }) => {
-  return useAPIRefresh({ dataFn: getVotes, params: { id }, sortBy, paused })
+  return useAPIRefresh({ dataFn: getEntryVotes, params: { id }, sortBy, paused })
 }
+
 export const useEntriesWithUsersList = ({ sortBy = 'name', paused = true }) => {
   const [users] = useUsersList({})
   const [entries] = useEntriesList({})

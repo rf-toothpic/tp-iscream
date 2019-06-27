@@ -60,11 +60,11 @@ const entryReducer = (state = initialState, action) =>
         draft.error = null
         break
       case GET_ENTRY_SUCCESS:
-        draft.loading = true
+        draft.loading = false
         draft.entry = action.payload
         break
       case GET_ENTRY_FAILURE:
-        draft.loading = true
+        draft.loading = false
         draft.error = action.error
         break
     }

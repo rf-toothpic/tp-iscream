@@ -23,6 +23,12 @@ const selectEntries = () =>
     substate => substate.entries
   )
 
+export const selectLoading = () =>
+  createSelector(
+    selectEntryDomain,
+    substate => substate.loading
+  )
+
 /**
  * Default selector used by Entry
  */

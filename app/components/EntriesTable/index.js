@@ -33,7 +33,7 @@ function EntriesTable ({ entries }) {
   const [columnDefs] = React.useState([
     { headerName: 'current', cellRenderer: (params) => params.data.week === currentWeek ? '*' : '' },
     { headerName: 'wk', field: 'week' },
-    { headerName: 'Chef', field: 'nickname' },
+    { headerName: 'Chef', field: 'user_nickname' },
     { headerName: 'Entry Name', field: 'entry_name' },
     { headerName: 'Total', field: 'total' },
     { headerName: 'Taste', field: 'taste' },

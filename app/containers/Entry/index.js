@@ -6,33 +6,61 @@
 
 import Button from 'components/Button'
 import CreateEntryForm from 'components/CreateEntryForm'
+import VotesTable from 'components/VotesTable'
 import React, { memo, useEffect, useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { createStructuredSelector } from 'reselect'
 import { compose } from 'redux'
-import { useCurrentUser, useDRs } from 'services/API/hooks'
+import { useCurrentUser, useDRs, useVotesList } from 'services/API/hooks'
 
 import { useInjectSaga } from 'utils/injectSaga'
 import { useInjectReducer } from 'utils/injectReducer'
-import { selectEntry } from './selectors'
+import { getUserId } from 'utils/localstorage'
+import { selectEntry, selectLoading } from './selectors'
 import reducer from './reducer'
 import saga from './saga'
 import { createEntry, updateEntry, getEntry } from './actions'
 
-export function Entry ({ onSubmit, getEntry, match, entry }) {
+export function Entry ({ onSubmit, getEntry, match, entry, loading }) {
   useInjectReducer({ key: 'entry', reducer })
   useInjectSaga({ key: 'entry', saga })
-
-  const user = useCurrentUser()
 
   useEffect(() => {
     if (match.params.id) {
       getEntry(match.params.id)
     }
   }, [match.params.id])
+
+  if (loading) {
+    return '...loading'
+  }
+
+  const [hasVoted, setHasVoted] = useState(null)
+  const [isOwnEntry, setOwnEntry] = useState(null)
+  const user = useCurrentUser()
+  let votes
+  if (match.params.id) {
+    [votes] = useVotesList(match.params.id, {})
+  }
+
+  if (user && entry && isOwnEntry !== null) {
+    if (user.id === entry.user_id) {
+      setOwnEntry(true)
+    } else {
+      setOwnEntry(false)
+    }
+  }
+
+  if (votes && hasVoted === null) {
+    if (_.find(votes, vote => vote && vote.user_id === getUserId())) {
+      setHasVoted(true)
+    } else {
+      setHasVoted(false)
+    }
+  }
 
   const [editable, setEditable] = useState(!match.params.id)
 
@@ -41,10 +69,14 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
     return <Redirect to={`/entry/${entry.id}`} />
   }
 
-  if (entry && entry.user_id && user && entry.user_id !== user.id) {
-    console.log('asd1')
-    return <Redirect to={{ pathname: `/vote/${entry.id}` }} />
+  if (!entry) {
+    return '...loading'
   }
+  //
+  // if (entry && entry.user_id && user && entry.user_id !== user.id) {
+  //   console.log('asd1')
+  //   return <Redirect to={{ pathname: `/vote/${entry.id}` }} />
+  // }
 
   const [requirements] = useDRs({})
 
@@ -56,8 +88,6 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
     console.log(data)
     onSubmit(data)
   }
-  console.log('asd123')
-
   return (
     <div>
       <Helmet>
@@ -65,8 +95,10 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
         <meta name='description' content='New Entry' />
       </Helmet>
       {!editable && <Button onClick={() => setEditable(!editable)}>Edit</Button>}
-      {!match.params.id && <CreateEntryForm drList={requirements} entry={null} onSubmit={createEntry} />}
-      {match.params.id && <CreateEntryForm drList={requirements} entry={entry} onSubmit={patchEntry} />}
+      {!isOwnEntry && !hasVoted && <Button component={Link} to={`/vote/${entry.id}`}>VOTE</Button>}
+      {!match.params.id && <CreateEntryForm drList={requirements} entry={null} editable onSubmit={createEntry} />}
+      {match.params.id && <CreateEntryForm drList={requirements} entry={entry} editable={isOwnEntry} onSubmit={patchEntry} />}
+      {match.params.id && entry && entry.user_id === getUserId() && <VotesTable votes={votes} anonymous />}
     </div>
   )
 }
@@ -76,7 +108,8 @@ Entry.propTypes = {
 }
 
 const mapStateToProps = createStructuredSelector({
-  entry: selectEntry()
+  entry: selectEntry(),
+  loading: selectLoading()
 })
 
 function mapDispatchToProps (dispatch) {

@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Ballot ({ submit, entry }) {
-  const [values, setValues] = React.useState(categories.reduce((memo, cat) => Object.assign(memo, { [cat.name]: DEFAULT_VALUE })))
+  const [values, setValues] = React.useState(categories.reduce((memo, cat) => Object.assign(memo, { [cat.name]: DEFAULT_VALUE }),{}))
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }

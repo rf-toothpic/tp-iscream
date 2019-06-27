@@ -3,7 +3,8 @@ import TextField from 'components/TextField'
 import PropTypes from 'prop-types'
 import React from 'react'
 import AuthPage from 'components/AuthPage'
-// import VoteButton from 'components/VoteButton'
+import { Type } from '@toothpic/components/es/Type'
+import ButtonLink from '@toothpic/components/es/ButtonLink'
 
 import styles from './styles.css'
 
@@ -40,11 +41,9 @@ const inlineStyle = {
 }
 
 const AuthView = ({ userLogin, loading, error, email, password, onChange }) => {
-  console.log('here')
-
   const doLogin = (e) => {
     e.preventDefault()
-    userLogin()
+    userLogin({ email, password })
   }
 
   return (
@@ -77,7 +76,7 @@ const AuthView = ({ userLogin, loading, error, email, password, onChange }) => {
             InputProps={{ disableUnderline: true }}
           />
 
-          {error && error.message}
+          {error && <Type name='h2/f/center/error/light' >{error && (error.message || error)}</Type>}
 
           <Button
             variant='contained'
@@ -93,7 +92,7 @@ const AuthView = ({ userLogin, loading, error, email, password, onChange }) => {
         </>
       } right={
         <>
-          <Button href='/signup'>Sign up</Button>
+          <ButtonLink to='/signup' color='primary' variant='contained'>Sign up</ButtonLink>
         </>
       } />
     </form>

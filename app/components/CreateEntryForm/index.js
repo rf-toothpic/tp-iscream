@@ -16,7 +16,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles'
 import DRList from 'components/DRList'
 import Button from 'components/Button'
 import UploadImage from 'components/UploadImage'
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useCurrentUser } from 'services/API/hooks'
 import { getWeekNumber, toDateString } from 'utils/datetime'
 import { colors } from '@toothpic/utils/es/design-system'
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export function MediaOrUpload ({ data={}, classes, onSelect, editable=true }) {
+export function MediaOrUpload ({ data = {}, classes, onSelect, editable = true }) {
   const [newImage, toggleUploadImage] = useState(false)
   const onClick = () => toggleUploadImage(!newImage)
   const onSelectImage = (data) => {
@@ -55,7 +55,7 @@ export function MediaOrUpload ({ data={}, classes, onSelect, editable=true }) {
   return <>
     {data.image_url && !newImage && <>
       <CardMedia title={data.entry_name} className={classes.media} image={data.image_url} />
-      {editable&&<Button onClick={onClick}>New Image
+      {editable && <Button onClick={onClick}>New Image
       </Button>}
     </>
     }
@@ -64,15 +64,15 @@ export function MediaOrUpload ({ data={}, classes, onSelect, editable=true }) {
   </>
 }
 
-function CreateEntryForm ({ onSubmit, loading, error, entry, drList, disabled = false }) {
-  console.log(entry)
+function CreateEntryForm ({ onSubmit, loading, error, entry, drList, disabled = false, editable=false }) {
   const d = new Date()
 
   const [data, setData] = useState({ entry_name: '', date: d, dateString: toDateString(d), dietary_requirements: [], ...entry })
 
-  useEffect(()=>{
+  useEffect(() => {
     setData({ entry_name: '', date: d, dateString: toDateString(d), dietary_requirements: [], ...entry })
-  },[entry])
+  }, [entry])
+
   const onChange = (e) => {
     e.preventDefault()
     setData({ ...data, [e.target.name]: e.target.value })
@@ -102,9 +102,8 @@ function CreateEntryForm ({ onSubmit, loading, error, entry, drList, disabled = 
     onSubmit({ entry_name: data.entry_name, date: data.date, dietary_requirements: data.dietary_requirements })
   }
 
-  const formDisabled = disabled || loading
+  const formDisabled = disabled || loading || !editable
   const submitDisabled = formDisabled || !(data.entry_name)
-  console.log(formDisabled, data.entry_name)
   const user = useCurrentUser(getUserId()) || { nickname: '-' }
   const classes = useStyles()
 
@@ -123,13 +122,13 @@ function CreateEntryForm ({ onSubmit, loading, error, entry, drList, disabled = 
           <InputLabel>Week</InputLabel>
           <TextField InputProps={{ disableUnderline: true }} disabled value={getWeekNumber(data.date)} />
 
-          <DRList selected={data.dietary_requirements} list={drList} onListChange={onDRChange} />
+          <DRList selected={data.dietary_requirements} list={drList} onListChange={onDRChange} showSelected />
 
         </fieldset>
       </CardContent>
-      <CardActions >
+      {editable && <CardActions>
         <Button type='submit' onClick={submit} disabled={submitDisabled}>Create Entry</Button>
-      </CardActions>
+      </CardActions>}
     </Card>
   </form>
 }
