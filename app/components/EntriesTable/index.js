@@ -15,6 +15,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 import { getWeekNumber } from 'utils/datetime'
 import { colors } from '@toothpic/utils/es/design-system'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   current: {
@@ -40,10 +41,8 @@ function EntriesTable ({ entries }) {
     { headerName: 'Quantity', field: 'quantity' },
     {
       headerName: 'View',
-      cellRenderer: function (params) {
-        return `<a href="${window.location.protocol}//${window.location.host}/competition_entries/${
-          params.data.id
-        }?schema=${params.data.schema}&audit=true" target="_blank">View</a>`
+      cellRendererFramework: function ({data}) {
+        return <a href={`${window.location.protocol}//${window.location.host}/entry/${data.id}`}>View</a>
       }
     }
   ])

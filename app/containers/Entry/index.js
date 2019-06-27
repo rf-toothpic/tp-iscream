@@ -36,11 +36,13 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
 
   const [editable, setEditable] = useState(!match.params.id)
 
-  if (entry.id && !match.params.id) {
+  if (entry && entry.id && !match.params.id) {
+    console.log('asd')
     return <Redirect to={`/entry/${entry.id}`} />
   }
 
-  if (entry.user_id !== user.id) {
+  if (entry && entry.user_id && user && entry.user_id !== user.id) {
+    console.log('asd1')
     return <Redirect to={{ pathname: `/vote/${entry.id}` }} />
   }
 
@@ -54,6 +56,7 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
     console.log(data)
     onSubmit(data)
   }
+  console.log('asd123')
 
   return (
     <div>

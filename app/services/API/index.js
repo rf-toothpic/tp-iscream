@@ -5,9 +5,11 @@ import { delay, put } from 'redux-saga/effects'
 import mocks from './mocks'
 import { create } from 'apisauce'
 import { entryList, entryGet } from './transforms'
+import _ from 'lodash'
 const GET = 'GET'
 const POST = 'POST'
 const FETCH = 'GET'
+
 
 const headers = { 'content-type': 'application/json' }
 const token = getToken()
@@ -90,7 +92,8 @@ export async function fetchUser (id) {
     .then(users => {
       if (users.length) {
         return _.find(users, (user) => user.id == id)
-      } return users
+      } 
+      return users
     })
 }
 

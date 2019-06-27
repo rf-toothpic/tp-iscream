@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function MediaOrUpload ({ data, classes, onSelect }) {
+export function MediaOrUpload ({ data={}, classes, onSelect, editable=true }) {
   const [newImage, toggleUploadImage] = useState(false)
   const onClick = () => toggleUploadImage(!newImage)
   const onSelectImage = (data) => {
@@ -55,11 +55,11 @@ function MediaOrUpload ({ data, classes, onSelect }) {
   return <>
     {data.image_url && !newImage && <>
       <CardMedia title={data.entry_name} className={classes.media} image={data.image_url} />
-      <Button onClick={onClick}>New Image
-      </Button>
+      {editable&&<Button onClick={onClick}>New Image
+      </Button>}
     </>
     }
-    {!data.image_url || newImage &&
+    {!data.image_url || newImage && editable &&
     <UploadImage entryId={data.id} className={classes.media} onSelect={onSelectImage} />}
   </>
 }
