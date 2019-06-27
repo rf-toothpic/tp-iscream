@@ -13,6 +13,7 @@ import Auth from 'containers/Auth'
 // import Ballot from 'containers/Ballot'
 import Entry from 'containers/Entry'
 import Leaderboard from 'containers/Leaderboard'
+import DietaryRequirements from 'containers/DietaryRequirements'
 import Logout from 'containers/Logout'
 import Vote from 'containers/Vote'
 
@@ -60,6 +61,7 @@ export function App () {
           <Route exact path='/signup' component={Auth} />
           <Route exact path='/account' component={Auth} />
           <PrivateRoute exact path='/leaderboard' component={Leaderboard} isAuthenticated={isAuthenticated()} />
+          <PrivateRoute exact path='/dietary-requirements' component={DietaryRequirements} isAuthenticated={isAuthenticated()} />
           {/* <PrivateRoute exact path='/ballot/:ballotId' component={Ballot} isAuthenticated={isAuthenticated()} /> */}
           <PrivateRoute exact path='/vote/:id' component={Vote} isAuthenticated={isAuthenticated()} />
           <PrivateRoute exact path='/entry/:id' component={Entry} isAuthenticated={isAuthenticated()} />
