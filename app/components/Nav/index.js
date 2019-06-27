@@ -15,11 +15,14 @@ import styled from 'styled-components'
 import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
 import List from '@material-ui/core/List'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import MailIcon from '@material-ui/icons/Mail'
+import Img from "../Header/Img";
+import LeaderboardIcon from 'images/dashboard_leaderboard.png'
+import CreateEntryIcon from 'images/dashboard_create_entry.png'
+import AllergiesIcon from 'images/dashboard_allergies.png'
+import LogoutIcon from 'images/dashboard_logout.png'
 
 const UnstyledLink = styled(Link)`
   text-decoration: none;
@@ -76,7 +79,7 @@ const Nav = ({ container, children }) => {
       <List>
         <UnstyledLink to='/leaderboard?type=table'>
           <ActiveListItem to='/leaderboard'>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon><Img src={LeaderboardIcon} alt='Dietary Requirements icon' /></ListItemIcon>
             <ListItemText primary='Leaderboard' />
           </ActiveListItem>
         </UnstyledLink>
@@ -86,13 +89,13 @@ const Nav = ({ container, children }) => {
       <List>
         <UnstyledLink to='/entry'>
           <ActiveListItem to='/entry'>
-            <ListItemIcon> <MailIcon /></ListItemIcon>
+            <ListItemIcon> <Img src={CreateEntryIcon} alt='Create Entry icon' /></ListItemIcon>
             <ListItemText primary='Create Entry' />
           </ActiveListItem>
         </UnstyledLink>
         <UnstyledLink to='/dietary-requirements'>
           <ActiveListItem to='/dietary-requirements'>
-            <ListItemIcon> <MailIcon /></ListItemIcon>
+            <ListItemIcon> <Img src={AllergiesIcon} alt='Dietary Requirements icon' /></ListItemIcon>
             <ListItemText primary='Dietary Requirements' />
           </ActiveListItem>
         </UnstyledLink>
@@ -100,7 +103,7 @@ const Nav = ({ container, children }) => {
       <Divider />
       <UnstyledLink to='/logout'>
         <ActiveListItem to='/logout'>
-          <ListItemIcon> <MailIcon /></ListItemIcon>
+          <ListItemIcon> <Img src={LogoutIcon} alt='Logout icon' /></ListItemIcon>
           <ListItemText primary='Logout' />
         </ActiveListItem>
       </UnstyledLink>
