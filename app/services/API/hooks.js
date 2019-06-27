@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { fetchUsers, getEntries, getVotes, fetchDietaryRequirements, fetchUser } from 'services/API/index'
+import { fetchUsers, getEntries, getVotes, fetchDietaryRequirements, fetchUser, getAllVotes } from 'services/API/index'
 import { getUserId } from 'utils/localstorage'
 
 const REFRESH_TIME = 10000
@@ -36,6 +36,9 @@ export const useEntriesList = ({ sortBy = 'name', paused = true }) => {
 export const useVotesList = (id, { sortBy = 'name', paused = true }) => {
   return useAPIRefresh({ dataFn: getVotes, params: { id }, sortBy, paused })
 }
+export const useAllVotesList = ({ sortBy = 'name', paused = true }) => {
+  return useAPIRefresh({ dataFn: getAllVotes, sortBy, paused })
+}
 export const useEntriesWithUsersList = ({ sortBy = 'name', paused = true }) => {
   const [users] = useUsersList({})
   const [entries] = useEntriesList({})
@@ -50,7 +53,7 @@ export const useEntriesWithUsersList = ({ sortBy = 'name', paused = true }) => {
 export const useEntriesWithUsersAndVotesList = ({ sortBy = 'name', paused = true }) => {
   const [users] = useUsersList({})
   const [entries] = useEntriesList({})
-  const [votes] = useVotesList({ entryId: 0 })
+  const [votes] = useAllVotesList({})
   const ret = entries.map(ent => {
     ent.user = _.find(users, user => user.id === ent.chef)
     ent.votes = _.filter(votes, (v) => v.competition_entry_id === ent.id)
