@@ -32,6 +32,7 @@ export function Vote ({ entry, getEntry, match, castVote, submitted }) {
   }
   useEffect(() => {
     getEntry(match.params.id)
+    return ()=>{}
   }, [])
 
   const onSubmit = (data) => {

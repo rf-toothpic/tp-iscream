@@ -1,6 +1,15 @@
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { fetchUsers, getEntries, getVotes, fetchDietaryRequirements, fetchUser, getAllVotes } from 'services/API/index'
+
+import {
+  fetchUsers,
+  getEntries,
+  getVotes,
+  fetchDietaryRequirements,
+  fetchUser,
+  getEntryVotes,
+  getAllVotes
+} from 'services/API/index'
 import { getUserId } from 'utils/localstorage'
 
 const REFRESH_TIME = 10000
@@ -20,6 +29,7 @@ export const useAPIRefresh = ({ sortBy = 'name', paused = false, dataFn = async 
     if (!paused) {
       setTimeout(() => updateCount(count + 1), REFRESH_TIME)
     }
+    return () => {}
   }, [sortBy, count])
 
   return [data, cancel]
@@ -34,11 +44,13 @@ export const useEntriesList = ({ sortBy = 'name', paused = true }) => {
 }
 
 export const useVotesList = (id, { sortBy = 'name', paused = true }) => {
-  return useAPIRefresh({ dataFn: getVotes, params: { id }, sortBy, paused })
+  return useAPIRefresh({ dataFn: getEntryVotes, params: { id }, sortBy, paused })
 }
+
 export const useAllVotesList = ({ sortBy = 'name', paused = true }) => {
   return useAPIRefresh({ dataFn: getAllVotes, sortBy, paused })
 }
+
 export const useEntriesWithUsersList = ({ sortBy = 'name', paused = true }) => {
   const [users] = useUsersList({})
   const [entries] = useEntriesList({})
@@ -75,6 +87,7 @@ export const useCurrentUser = (id) => {
     fetchUser(id || getUserId()).then((user) => {
       setUser(user)
     })
+    return ()=>{}
   }, [id])
 
   return user

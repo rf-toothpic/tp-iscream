@@ -10,7 +10,6 @@ const GET = 'GET'
 const POST = 'POST'
 const FETCH = 'GET'
 
-
 const headers = { 'content-type': 'application/json' }
 const token = getToken()
 if (token && token !== 'undefined') {
@@ -92,7 +91,7 @@ export async function fetchUser (id) {
     .then(users => {
       if (users.length) {
         return _.find(users, (user) => user.id == id)
-      } 
+      }
       return users
     })
 }
@@ -116,7 +115,7 @@ export async function getEntry (id) {
     .then(entry => entryGet(entry.data))
 }
 
-export async function getEntryVotes (id) {
+export async function getEntryVotes ({ id }) {
   return api.get(`/competition_entries/${id}/votes`)
     .then(entry => entry.data)
 }
@@ -142,7 +141,7 @@ export async function getVotes ({ id }) {
       console.log(response.data)
       const votes = response.data
       return _.filter(votes, (vote) => vote.entry_id === id)
-    })
+    }).catch(e => [])
 }
 
 export async function getAllVotes () {
@@ -151,7 +150,7 @@ export async function getAllVotes () {
 }
 
 export async function createVote (vote) {
-  return api.post('/votes')
+  return api.post('/votes', vote)
     .then(response => {
       console.log(response.data)
       return response.data

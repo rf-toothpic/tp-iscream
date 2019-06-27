@@ -19,7 +19,7 @@ import {
   FETCH_USERS
 } from './constants'
 
-export function * loginRequest ({ email, password }) {
+export function * loginRequest ({ payload: { email, password } = {} }) {
   try {
     const loginData = yield loginUser(email, password)
     setToken(loginData.auth_token)

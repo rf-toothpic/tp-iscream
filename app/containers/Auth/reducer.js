@@ -17,7 +17,7 @@ import {
   FETCH_USERS_SUCCESS,
   LOGIN_REQUEST,
   LOGIN_REQUEST_FAILURE,
-  LOGIN_REQUEST_SUCCESS, SIGNUP_REQUEST, SIGNUP_REQUEST_FAILURE, SIGNUP_REQUEST_SUCCESS,
+  LOGIN_REQUEST_SUCCESS, SIGNUP_REQUEST, SIGNUP_REQUEST_FAILURE, SIGNUP_REQUEST_SUCCESS
 } from './constants'
 
 export const initialState = {
@@ -99,9 +99,9 @@ function loginRequestSuccess (state, { payload }) {
   state.user = payload
 }
 
-function loginRequestFailure (state, { error, ...rest }) {
+function loginRequestFailure (state ) {
   state.loading = false
-  state.error = error && error.message
+  state.error = { message: "I can nay log in cap'n!" }
 }
 
 /*
@@ -121,7 +121,7 @@ function signupRequestSuccess (state, { payload }) {
 
 function signupRequestFailure (state, { error }) {
   state.loading = false
-  state.error = error
+  state.error = { message: 'Gway outta that' }
 }
 
 function clearSessionData () {

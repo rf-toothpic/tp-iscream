@@ -19,14 +19,29 @@ function setOrRemoveFromArray (array, value) {
     return arr.filter(v => v !== value)
   }
 }
-
-function DRList ({ list = [], selected = [], onListChange, disabled, name = 'dietary_requirements' }) {
+const DATA_FIELD = 'allergen_name'
+function DRList ({ list = [], selected = [], onListChange, disabled, name = 'dietary_requirements', showSelected = false }) {
   const selectItem = (e) => {
     if (e.target.name === 'none' && e.target.checked) {
       return onListChange({ target: { name, value: [] } })
     }
     const dietaryRequirementsList = setOrRemoveFromArray(selected, e.target.value)
     onListChange({ target: { name, value: dietaryRequirementsList } })
+  }
+
+  const filterSelected = (list, selected) => {
+    return list.filter(l => selected.findIndex(a => a[DATA_FIELD]))
+  }
+
+  const data = showSelected ? filterSelected(list, selected) : list
+
+  if (showSelected) {
+    if (!data.length) {
+      return 'Pure clean like'
+    }
+    return <ul>
+      {data.map(d => <li>{d[DATA_FIELD]}</li>)}
+    </ul>
   }
 
   return <ul >
@@ -41,15 +56,15 @@ function DRList ({ list = [], selected = [], onListChange, disabled, name = 'die
           onChange={selectItem} />None
       </label>
     </li>
-    {list.map(item => <li key={item.allergen_name}>
+    {list.map(item => <li key={item[DATA_FIELD]}>
       <label>
         <input
           type='checkbox'
-          value={item.allergen_name}
+          value={item[DATA_FIELD]}
           disabled={disabled}
           onChange={selectItem}
-          name={item.allergen_name}
-          checked={selected.findIndex(value => value === item.allergen_name) > -1} />{item.allergen_name}</label>
+          name={item[DATA_FIELD]}
+          checked={selected.findIndex(value => value === item[DATA_FIELD]) > -1} />{item[DATA_FIELD]}</label>
     </li>)}
   </ul>
 }

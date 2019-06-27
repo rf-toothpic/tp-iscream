@@ -49,7 +49,7 @@ export function Leaderboard ( ) {
 
   const [entries] = useEntriesWithUsersList({})
   const [chartEntries] = useEntriesWithUsersAndVotesList({})
-
+  
   return (
     <div>
       <Helmet>

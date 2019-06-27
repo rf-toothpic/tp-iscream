@@ -86,3 +86,24 @@
   line-height: 87px;
   margin: 30px auto;
 }
+
+.leftright {
+  display: flex;
+  flex-direction: row;
+  height:100%;
+}
+.left {
+  flex:1;
+  height:100%;
+}
+.right {
+  flex:2;
+  height:100%;
+}
+@media only screen and (max-width: 600px){
+
+  .leftright {
+    flex-direction: column;
+    width:100%;
+  }
+}

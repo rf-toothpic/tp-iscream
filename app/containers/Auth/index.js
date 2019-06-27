@@ -60,11 +60,12 @@ export class Auth extends React.Component {
   render () {
     const {
       error,
-      userLoginRequest,
+      login,
       signupRequest,
-      user: { loading, ...user },
+      user: { ...user },
       location,
-      authenticationComplete
+      authenticationComplete,
+      loading
     } = this.props
 
     const { email, password, dietary_requirements, nickname, showAccount } = this.state
@@ -93,7 +94,7 @@ export class Auth extends React.Component {
           loading={loading}
           error={error}
           onChange={this.onChange}
-          userLogin={userLoginRequest}
+          userLogin={login}
         />
       )
       case '/signup': return (
@@ -136,12 +137,12 @@ Auth.propTypes = {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
-  return { user: state.auth, authenticationComplete: state.auth.authenticationComplete, error:state.auth.error }
+  return { user: state.auth, authenticationComplete: state.auth.authenticationComplete, error: state.auth.error, loading: state.auth.loading }
 }
 
 const mapDispatchToProps = dispatch => ({
-  userLoginRequest: (data) => {
+  login: (data) => {
+    console.log(data)
     dispatch(userLoginRequest(data))
   },
   signupRequest: (data) => {

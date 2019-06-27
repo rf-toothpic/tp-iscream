@@ -9,23 +9,36 @@ import styled from 'styled-components'
 import styles from '../../containers/Auth/styles.css'
 
 const Page = styled.div`
-  opacity: 1;
-  max-width: 680px;
-  margin:0 auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 10px 0;
-  text-align: center;
+  flex-direction: row;
+  height:100%;
 `
 
-const AuthPage = ({left, right}) => (
-  <Page className={styles.formContainer}>
-    {/*<a href='/login'><img src={logo} className={styles.logo} /></a>*/}
+const Left = styled.div`
+  flex:2;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10%;
+`
+const Right = styled.div`
+  flex:1;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10%;
+`
 
-    {left}
-    {right}
+const AuthPage = ({ left, right }) => (
+  <Page className={styles.leftright}>
+    <Left>
+      {left}
+    </Left>
+    <Right>
+      {right}
+    </Right>
   </Page>
 )
 

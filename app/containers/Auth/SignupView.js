@@ -3,6 +3,7 @@ import TextField from 'components/TextField'
 import PropTypes from 'prop-types'
 import React from 'react'
 import AuthPage from 'components/AuthPage'
+import ButtonLink from '@toothpic/components/es/ButtonLink'
 
 import styles from './styles.css'
 
@@ -89,7 +90,7 @@ const SignupView = ({ signupUser, loading, error, email, password, onChange }) =
           </>
         } left={
             <>
-              <Button href='/login'>Login</Button>
+              <ButtonLink to='/login' color='primary' variant='contained'>Login</ButtonLink>
             </>
         } />
       </form>
