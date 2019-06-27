@@ -5,6 +5,24 @@
  */
 
 import React, { memo } from 'react'
+import Img from '../Header/Img'
+import Icon from '../Header/Icon'
+import CeleryIcon from 'images/celery.png'
+import CrustaceansIcon from 'images/crustaceans.png'
+import EggIcon from 'images/egg.png'
+import FishIcon from 'images/fish.png'
+import LupinIcon from 'images/lupin.png'
+import MilkIcon from 'images/milk.png'
+import MolluscIcon from 'images/mollusc.png'
+import MustardIcon from 'images/mustard.png'
+import NutsIcon from 'images/nuts.png'
+import PeanutIcon from 'images/peanut.png'
+import SesameIcon from 'images/sesame.png'
+import SoybeanIcon from 'images/soybean.png'
+import SulfitesIcon from 'images/sulfites.png'
+import VeganIcon from 'images/vegan.png'
+import VegetarianIcon from 'images/vegetarian.png'
+import WheatIcon from 'images/wheat.png'
 
 function setOrRemoveFromArray (array, value) {
   if (value === null) {
@@ -46,6 +64,7 @@ function DRList ({ list = [], selected = [], onListChange, disabled, name = 'die
 
   return <ul >
     <li>
+      <Icon src={PeanutIcon} alt='Peanut icon' />
       <label>
         <input
           type='checkbox'
@@ -57,6 +76,7 @@ function DRList ({ list = [], selected = [], onListChange, disabled, name = 'die
       </label>
     </li>
     {list.map(item => <li key={item[DATA_FIELD]}>
+      <Icon src={PeanutIcon} alt='Peanut icon' />
       <label>
         <input
           type='checkbox'
