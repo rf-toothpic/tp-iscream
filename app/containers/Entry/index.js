@@ -24,7 +24,7 @@ import reducer from './reducer'
 import saga from './saga'
 import { createEntry, updateEntry, getEntry } from './actions'
 
-export function Entry ({ onSubmit, getEntry, match, entry, loading }) {
+export function Entry ({ match, loading, entry, onSubmit }) {
   useInjectReducer({ key: 'entry', reducer })
   useInjectSaga({ key: 'entry', saga })
 
@@ -32,6 +32,7 @@ export function Entry ({ onSubmit, getEntry, match, entry, loading }) {
     if (match.params.id) {
       getEntry(match.params.id)
     }
+    return () => {}
   }, [match.params.id])
 
   if (loading) {
@@ -45,7 +46,7 @@ export function Entry ({ onSubmit, getEntry, match, entry, loading }) {
   if (match.params.id) {
     [votes] = useVotesList(match.params.id, {})
   }
-
+  //
   if (user && entry && isOwnEntry !== null) {
     if (user.id === entry.user_id) {
       setOwnEntry(true)
@@ -53,7 +54,7 @@ export function Entry ({ onSubmit, getEntry, match, entry, loading }) {
       setOwnEntry(false)
     }
   }
-
+  //
   if (votes && hasVoted === null) {
     if (_.find(votes, vote => vote && vote.user_id === getUserId())) {
       setHasVoted(true)
@@ -61,9 +62,9 @@ export function Entry ({ onSubmit, getEntry, match, entry, loading }) {
       setHasVoted(false)
     }
   }
-
+  //
   const [editable, setEditable] = useState(!match.params.id)
-
+  //
   if (entry && entry.id && !match.params.id) {
     console.log('asd')
     return <Redirect to={`/entry/${entry.id}`} />
@@ -72,18 +73,18 @@ export function Entry ({ onSubmit, getEntry, match, entry, loading }) {
   if (!entry) {
     return '...loading'
   }
+  // //
+  if (entry && entry.user_id && user && entry.user_id !== user.id) {
+    console.log('asd1')
+    return <Redirect to={{ pathname: `/vote/${entry.id}` }} />
+  }
   //
-  // if (entry && entry.user_id && user && entry.user_id !== user.id) {
-  //   console.log('asd1')
-  //   return <Redirect to={{ pathname: `/vote/${entry.id}` }} />
-  // }
-
   const [requirements] = useDRs({})
-
+  //
   const createEntry = (data) => {
     onSubmit(data)
   }
-
+  //
   const patchEntry = (data) => {
     console.log(data)
     onSubmit(data)

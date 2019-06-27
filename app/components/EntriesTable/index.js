@@ -15,7 +15,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 import { getWeekNumber } from 'utils/datetime'
 import { colors } from '@toothpic/utils/es/design-system'
-import { Link } from 'react-router-dom'
+import ButtonLink  from '@toothpic/components/es/ButtonLink'
 
 const useStyles = makeStyles({
   current: {
@@ -42,7 +42,7 @@ function EntriesTable ({ entries }) {
     {
       headerName: 'View',
       cellRendererFramework: function ({data}) {
-        return <a href={`${window.location.protocol}//${window.location.host}/entry/${data.id}`}>View</a>
+        return <ButtonLink href={`${window.location.protocol}//${window.location.host}/entry/${data.id}`}>View</ButtonLink>
       }
     }
   ])
@@ -50,6 +50,7 @@ function EntriesTable ({ entries }) {
   const [data, setData] = useState([])
   useEffect(() => {
     setData(entries)
+    return ()=>{}
   }, [entries])
 
   const defaultColDefs = { sortable: true, filter: true }

@@ -71,6 +71,7 @@ function CreateEntryForm ({ onSubmit, loading, error, entry, drList, disabled = 
 
   useEffect(() => {
     setData({ entry_name: '', date: d, dateString: toDateString(d), dietary_requirements: [], ...entry })
+    return ()=>{}
   }, [entry])
 
   const onChange = (e) => {

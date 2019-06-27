@@ -49,6 +49,7 @@ export function HomePage({
   useEffect(() => {
     // When initial state username is not null, submit the form to load repos
     if (username && username.trim().length > 0) onSubmitForm();
+    return ()=>{}
   }, []);
 
   const reposListProps = {

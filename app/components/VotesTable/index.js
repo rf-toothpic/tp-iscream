@@ -43,6 +43,7 @@ function VotesTable ({ votes = [] }) {
   const [data, setData] = useState([])
   useEffect(() => {
     setData(votes)
+    return ()=>{}
   }, [votes])
 
   const defaultColDefs = { sortable: true, filter: true }

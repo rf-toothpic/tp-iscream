@@ -6,7 +6,7 @@ import {
   getVotes,
   fetchDietaryRequirements,
   fetchUser,
-  getEntryVotes,
+  getEntryVotes
 } from 'services/API/index'
 import { getUserId } from 'utils/localstorage'
 
@@ -27,6 +27,7 @@ export const useAPIRefresh = ({ sortBy = 'name', paused = false, dataFn = async 
     if (!paused) {
       setTimeout(() => updateCount(count + 1), REFRESH_TIME)
     }
+    return () => {}
   }, [sortBy, count])
 
   return [data, cancel]
@@ -80,6 +81,7 @@ export const useCurrentUser = (id) => {
     fetchUser(id || getUserId()).then((user) => {
       setUser(user)
     })
+    return ()=>{}
   }, [id])
 
   return user
