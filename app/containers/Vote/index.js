@@ -29,7 +29,8 @@ export function Vote() {
         <title>Vote</title>
         <meta name="description" content="Description of Vote" />
       </Helmet>
-      {/*<FormattedMessage {...messages.header} />*/}
+
+
     </div>
   );
 }

@@ -6,6 +6,7 @@
 
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
+import {Button} from '@material-ui/core'
 
 /*
 import RootRef from '@material-ui/core/RootRef'
@@ -45,7 +46,7 @@ function UploadImage ({onSelect}) {
     <div {...getRootProps()}>
       {/*{img && <img style={{ height: 100 }} src={img} />}*/}
       <input {...getInputProps()} />
-      <p>Drag 'n' drop some files here, or click to select files</p>
+      <Button variant="contained">Drag 'n' drop some files here, or click to select files</Button>
     </div>
   )
 }

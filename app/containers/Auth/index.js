@@ -44,6 +44,7 @@ export class Auth extends React.Component {
   }
 
   isLoggedIn () {
+    console.log(isAuthenticated())
     return !!isAuthenticated()
   }
 
@@ -73,6 +74,7 @@ export class Auth extends React.Component {
     }
 
     if (this.isLoggedIn()) {
+      console.log('in', authenticationComplete)
       return (
         <Redirect
           to={{
@@ -134,6 +136,7 @@ Auth.propTypes = {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   return { user: state.auth, authenticationComplete: state.auth.authenticationComplete, error:state.auth.error }
 }
 

@@ -73,6 +73,7 @@ export async function loginUser (email, password) {
         if (!res.ok) {
           throw new Error('unauthorized')
         }
+        return res.data
       })
   } catch (e) {
     return Promise.reject(e)
@@ -85,6 +86,12 @@ export async function updateUser () {
 
 export async function fetchUser (id) {
   return api.get(`/users/${id}`)
+    .then(res => res.data)
+    .then(users => {
+      if (users.length) {
+        return _.find(users, (user) => user.id == id)
+      } return users
+    })
 }
 
 export async function fetchUsers () {
@@ -117,13 +124,28 @@ export async function getEntries () {
 }
 
 export async function updateEntry (obj) {
-  return mock('updateEntry', obj)
+  return api.put(`/competition_entries/${obj.id}`, obj)
+    .then(entry => entryGet(Object.assign({}, obj, entry.data.length ? entry.data[0] : entry.data)))
 }
 
 export async function createEntry (obj) {
-  return mock('createEntry', obj)
+  return api.post(`/competition_entries`, obj)
+    .then(entry => entryGet(Object.assign({}, obj, entry.data.length ? entry.data[0] : entry.data)))
 }
 
 export async function getVotes ({ id }) {
-  return mock('getVotes', { entry_id: id })
+  return api.get('/votes')
+    .then(response => {
+      console.log(response.data)
+      const votes = response.data
+      return _.filter(votes, (vote) => vote.entry_id === id)
+    })
+}
+
+export async function createVote (vote) {
+  return api.post('/votes')
+    .then(response => {
+      console.log(response.data)
+      return response.data
+    })
 }

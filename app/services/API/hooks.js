@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import { fetchUsers, getEntries, getVotes, fetchDietaryRequirements, fetchUser } from 'services/API/index'
+import { getUserId } from 'utils/localstorage'
 
 const REFRESH_TIME = 10000
 
@@ -65,11 +66,10 @@ export const useDRs = ({ sortBy = 'name', paused = true }) => {
 }
 
 export const useCurrentUser = (id) => {
-
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({})
 
   useEffect(() => {
-    fetchUser(id).then((user) => {
+    fetchUser(id || getUserId()).then((user) => {
       setUser(user)
     })
   }, [id])

@@ -6,6 +6,7 @@
  */
 
 import produce from 'immer'
+import { getToken } from 'utils/localstorage'
 import {
   CLEAR_SESSION_DATA,
   FETCH_USER,
@@ -22,7 +23,7 @@ import {
 export const initialState = {
   loading: false,
   error: null,
-  authenticationComplete: false,
+  authenticationComplete: !!getToken(),
   user: {},
   users: []
 }

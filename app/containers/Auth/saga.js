@@ -34,7 +34,7 @@ export function * signupRequest ({ payload: user }) {
   try {
     const data = yield signUpUser(user)
     setToken(data.auth_token)
-    setUserId(loginData.id)
+    setUserId(data.id)
     yield put(userSignupRequestSuccess(data))
     // yield put(userLoginRequest({ email: user.email, password: user.password }))
   } catch (e) {

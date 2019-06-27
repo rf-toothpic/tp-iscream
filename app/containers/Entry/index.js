@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { createStructuredSelector } from 'reselect'
 import { compose } from 'redux'
-import { useDRs } from 'services/API/hooks'
+import { useCurrentUser, useDRs } from 'services/API/hooks'
 
 import { useInjectSaga } from 'utils/injectSaga'
 import { useInjectReducer } from 'utils/injectReducer'
@@ -26,6 +26,8 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
   useInjectReducer({ key: 'entry', reducer })
   useInjectSaga({ key: 'entry', saga })
 
+  const user = useCurrentUser()
+
   useEffect(() => {
     if (match.params.id) {
       getEntry(match.params.id)
@@ -34,9 +36,12 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
 
   const [editable, setEditable] = useState(!match.params.id)
 
-  console.log(entry, match.params.id)
   if (entry.id && !match.params.id) {
     return <Redirect to={`/entry/${entry.id}`} />
+  }
+
+  if (entry.user_id !== user.id) {
+    return  <Redirect to={`/vote/${entry.id}`} />
   }
 
   const [requirements] = useDRs({})
@@ -45,6 +50,10 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
     onSubmit(data)
   }
 
+  const patchEntry = (data) => {
+    console.log(data)
+    onSubmit(data)
+  }
 
   return (
     <div>
@@ -54,7 +63,7 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
       </Helmet>
       {!editable && <Button onClick={() => setEditable(!editable)}>Edit</Button>}
       {!match.params.id && <CreateEntryForm drList={requirements} entry={null} onSubmit={createEntry} />}
-      {match.params.id && <CreateEntryForm drList={requirements} entry={entry} onSubmit={createEntry} />}
+      {match.params.id && <CreateEntryForm drList={requirements} entry={entry} onSubmit={patchEntry} />}
     </div>
   )
 }

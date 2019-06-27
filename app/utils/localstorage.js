@@ -26,5 +26,5 @@ export function clearToken () {
 
 export const isAuthenticated = () => {
   const token = window.localStorage.getItem(TOKEN)
-  return undefined !== token && token !== null
+  return undefined !== token && !!token
 }
