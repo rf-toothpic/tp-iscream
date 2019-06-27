@@ -144,6 +144,11 @@ export async function getVotes ({ id }) {
     }).catch(e => [])
 }
 
+export async function getAllVotes () {
+  return api.get('/votes')
+    .then(votes => votes.data)
+}
+
 export async function createVote (vote) {
   return api.post('/votes', vote)
     .then(response => {

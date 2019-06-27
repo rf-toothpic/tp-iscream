@@ -8,7 +8,7 @@ import Button from 'components/Button'
 import EntriesChart from 'components/EntriesChart'
 import EntriesTable from 'components/EntriesTable'
 import { selectUsers } from 'containers/Auth/selectors'
-import { useEntriesList, useEntriesWithUsersList, useUsersList } from 'services/API/hooks'
+import { useEntriesList, useEntriesWithUsersList, useUsersList, useEntriesWithUsersAndVotesList } from 'services/API/hooks'
 import { selectLeaderboardEntries, selectLeaderboardUsers } from './selectors'
 import React, { memo, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
@@ -47,8 +47,9 @@ export function Leaderboard ( ) {
     setType(t)
   }
 
-  const [entries] = useEntriesList({})
-
+  const [entries] = useEntriesWithUsersList({})
+  const [chartEntries] = useEntriesWithUsersAndVotesList({})
+  
   return (
     <div>
       <Helmet>
@@ -56,7 +57,7 @@ export function Leaderboard ( ) {
         <meta name='description' content='Description of Leaderboard' />
       </Helmet>
       <Button onClick={toggleType}>Toggle</Button>
-      {type === 'chart' ? <EntriesChart entries={entries} /> : <EntriesTable entries={entries} />}
+      {type === 'chart' ? <EntriesChart entries={chartEntries} /> : <EntriesTable entries={entries} />}
     </div>
   )
 }
