@@ -47,9 +47,9 @@ export function Leaderboard ( ) {
     setType(t)
   }
 
-  const [entries] = useEntriesWithUsersList({})
+  const [entries] = useEntriesWithUsersAndVotesList({})
   const [chartEntries] = useEntriesWithUsersAndVotesList({})
-  
+
   return (
     <div>
       <Helmet>

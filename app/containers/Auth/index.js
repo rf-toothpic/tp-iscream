@@ -75,14 +75,8 @@ export class Auth extends React.Component {
     }
 
     if (this.isLoggedIn()) {
-      console.log('in', authenticationComplete)
       return (
-        <Redirect
-          to={{
-            pathname: authenticationComplete ? '/leaderboard' : '/account',
-            state: this.state
-          }}
-        />
+        <Redirect to='/leaderboard'/>
       )
     }
 

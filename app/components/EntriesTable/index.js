@@ -7,7 +7,6 @@
 import { Card } from '@material-ui/core'
 import CardContent from '@material-ui/core/CardContent'
 import makeStyles from '@material-ui/core/styles/makeStyles'
-import { drawerWidth } from 'components/Header'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { AgGridReact } from 'ag-grid-react'
@@ -15,7 +14,6 @@ import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 import { getWeekNumber } from 'utils/datetime'
 import { colors } from '@toothpic/utils/es/design-system'
-import ButtonLink  from '@toothpic/components/es/ButtonLink'
 
 const useStyles = makeStyles({
   current: {
@@ -31,18 +29,34 @@ function EntriesTable ({ entries }) {
   const classes = useStyles()
   const currentWeek = getWeekNumber(new Date())
   const [columnDefs] = React.useState([
-    { headerName: 'current', cellRenderer: (params) => params.data.week === currentWeek ? '*' : '' },
+    // { headerName: 'current', cellRenderer: (params) => params.data.week === currentWeek ? '*' : '' },
     { headerName: 'wk', field: 'week' },
     { headerName: 'Chef', field: 'user_nickname' },
     { headerName: 'Entry Name', field: 'entry_name' },
-    { headerName: 'Total', field: 'total' },
-    { headerName: 'Taste', field: 'taste' },
-    { headerName: 'Complexity', field: 'complexity' },
-    { headerName: 'Quantity', field: 'quantity' },
+    { headerName: 'Votes',
+      cellRenderer: params => {
+        return params.data.votes.length
+      } },
+    { headerName: 'Total',
+      cellRenderer: params => {
+        return params.data.votes.reduce(v => v ? v.complexity + v.taste + v.quantity : 0, 0) / (params.data.votes.length || 1)
+      } },
+    { headerName: 'Taste',
+      cellRenderer: params => {
+        return params.data.votes.reduce(v => v ? v.taste : 0, 0) / (params.data.length || 1)
+      } },
+    { headerName: 'Complexity',
+      cellRenderer: params => {
+        return params.data.votes.reduce(v => v ? v.complexity : 0, 0) / (params.data.length || 1)
+      } },
+    { headerName: 'Quantity',
+      cellRenderer: params => {
+        return params.data.votes.reduce(v => v ? v.quantity : 0, 0) / (params.data.length || 1)
+      } },
     {
       headerName: 'View',
-      cellRendererFramework: function ({data}) {
-        return <ButtonLink href={`${window.location.protocol}//${window.location.host}/entry/${data.id}`}>View</ButtonLink>
+      cellRendererFramework: function ({ data }) {
+        return <a href={`${window.location.protocol}//${window.location.host}/entry/${data.id}`}>View</a>
       }
     }
   ])
@@ -50,7 +64,7 @@ function EntriesTable ({ entries }) {
   const [data, setData] = useState([])
   useEffect(() => {
     setData(entries)
-    return ()=>{}
+    return () => {}
   }, [entries])
 
   const defaultColDefs = { sortable: true, filter: true }

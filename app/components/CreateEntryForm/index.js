@@ -64,14 +64,14 @@ export function MediaOrUpload ({ data = {}, classes, onSelect, editable = true }
   </>
 }
 
-function CreateEntryForm ({ onSubmit, loading, error, entry, drList, disabled = false, editable=false }) {
+function CreateEntryForm ({ onSubmit, loading, error, entry, drList, disabled = false, editable = false }) {
   const d = new Date()
 
   const [data, setData] = useState({ entry_name: '', date: d, dateString: toDateString(d), dietary_requirements: [], ...entry })
 
   useEffect(() => {
     setData({ entry_name: '', date: d, dateString: toDateString(d), dietary_requirements: [], ...entry })
-    return ()=>{}
+    return () => {}
   }, [entry])
 
   const onChange = (e) => {
@@ -123,7 +123,7 @@ function CreateEntryForm ({ onSubmit, loading, error, entry, drList, disabled = 
           <InputLabel>Week</InputLabel>
           <TextField InputProps={{ disableUnderline: true }} disabled value={getWeekNumber(data.date)} />
 
-          <DRList selected={data.dietary_requirements} list={drList} onListChange={onDRChange} showSelected />
+          <DRList selected={data.dietary_requirements} list={drList} onListChange={onDRChange} showSelected={!editable} />
 
         </fieldset>
       </CardContent>

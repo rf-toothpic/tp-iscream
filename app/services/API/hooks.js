@@ -25,7 +25,7 @@ export const useAPIRefresh = ({ sortBy = 'name', paused = false, dataFn = async 
 
   const cancel = useEffect(() => {
     fetchData()
-    console.log(paused)
+
     if (!paused) {
       setTimeout(() => updateCount(count + 1), REFRESH_TIME)
     }

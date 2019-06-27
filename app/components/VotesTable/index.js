@@ -5,29 +5,26 @@
  */
 
 import { Card } from '@material-ui/core'
-import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
-import makeStyles from '@material-ui/core/styles/makeStyles'
-import { colors } from '@toothpic/utils/es/design-system'
+// import makeStyles from '@material-ui/core/styles/makeStyles'
+// import { colors } from '@toothpic/utils/es/design-system'
 import { AgGridReact } from 'ag-grid-react'
 import React, { useEffect, useState } from 'react'
-import { getWeekNumber } from 'utils/datetime'
+// import { getWeekNumber } from 'utils/datetime'
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
-const useStyles = makeStyles({
-  current: {
-    background: colors.primary['1'],
-    color: 'white'
-  },
-  odd: {
-    background: colors.secondary['04'],
-    color: 'white'
-  }
-})
+// const useStyles = makeStyles({
+//   current: {
+//     background: colors.primary['1'],
+//     color: 'white'
+//   },
+//   odd: {
+//     background: colors.secondary['04'],
+//     color: 'white'
+//   }
+// })
 function VotesTable ({ votes = [] }) {
-  const classes = useStyles()
-  const currentWeek = getWeekNumber(new Date())
   const [columnDefs] = React.useState([
     { headerName: 'taste', field: 'taste' },
     { headerName: 'complexity', field: 'complexity' },

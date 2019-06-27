@@ -14,8 +14,10 @@ import InputLabel from '@material-ui/core/InputLabel'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import { colors } from '@toothpic/utils/es/design-system'
 import { MediaOrUpload } from 'components/CreateEntryForm'
-import DRList from 'components/DRList'
-import Slider, { Range } from 'rc-slider'
+import VoteButton from 'components/VoteButton'
+import Confetti from 'react-dom-confetti'
+// import DRList from 'components/DRList'
+import Slider from 'rc-slider'
 import { Button, TextField } from '@material-ui/core'
 // We can just import Slider or Range to reduce bundle size
 // import Slider from 'rc-slider/lib/Slider';
@@ -64,20 +66,18 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Ballot ({ submit, entry }) {
-  const [values, setValues] = React.useState(categories.reduce((memo, cat) => Object.assign(memo, { [cat.name]: DEFAULT_VALUE }),{}))
+  const [values, setValues] = React.useState(categories.reduce((memo, cat) => Object.assign(memo, { [cat.name]: DEFAULT_VALUE }), {}))
+  const [submitting, setSubmitting] = React.useState(0)
   const onChange = (e) => {
+    setSubmitting(submitting + 1)
     setValues({ ...values, [e.target.name]: e.target.value })
   }
-  let user = {}
-  if (entry) {
-    user = useCurrentUser(entry.user_id)
-  }
+  let user = useCurrentUser(entry && entry.user_id)
 
   const updateTaste = (n) => setValues({ ...values, taste: n })
   const updateComp = (n) => setValues({ ...values, complexity: n })
   const updateQuant = (n) => setValues({ ...values, quantity: n })
-  const onSubmit = (e) => {
-    e.preventDefault()
+  const onSubmit = () => {
     submit({ ...values, competition_entry_id: entry.id })
   }
   const classes = useStyles()
@@ -103,8 +103,8 @@ function Ballot ({ submit, entry }) {
         </fieldset>
       </CardContent>
     </Card>}
-    <br/>
-    <br/>
+    <br />
+    <br />
     <form>
       <Card>
         <CardContent>
@@ -124,7 +124,7 @@ function Ballot ({ submit, entry }) {
           </fieldset>
         </CardContent>
         <CardActions>
-          <Button onClick={onSubmit} variant='contained' color='primary'>Cast thy vote</Button>
+          <VoteButton onSubmit={onSubmit} variant='contained' color='primary'>Cast thy vote</VoteButton>
         </CardActions></Card>
     </form>
   </div>

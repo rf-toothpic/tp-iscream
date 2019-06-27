@@ -20,19 +20,21 @@ import CardContent from '@material-ui/core/CardContent'
 import { Card } from '@material-ui/core'
 import _ from 'lodash'
 
-function EntriesChart ({ entries }) {
-  const filteredEntries = entries.filter(function (ent) {
-    return ent.votes.length > 0 && ent.user_nickname
-  })
-
-  const averagedEntries = filteredEntries.map((ent) => ({
+export function averageEntries (filteredEntries) {
+  return filteredEntries.map((ent) => ({
     nickname: ent.user_nickname ? ent.user_nickname : '',
     taste: _.sumBy(ent.votes, 'taste') / ent.votes.length,
     complexity: _.sumBy(ent.votes, 'complexity') / ent.votes.length,
     quantity: _.sumBy(ent.votes, 'quantity') / ent.votes.length
   }))
+}
 
-  console.log(averagedEntries)
+function EntriesChart ({ entries }) {
+  const filteredEntries = entries.filter(function (ent) {
+    return ent.votes.length > 0 && ent.user_nickname
+  })
+
+  const averagedEntries = averageEntries(filteredEntries)
 
   const tasteMax = Math.max.apply(Math, averagedEntries.map((o) => { return o.taste }))
   const complexityMax = Math.max.apply(Math, averagedEntries.map((o) => { return o.complexity }))

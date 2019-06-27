@@ -97,6 +97,7 @@
     "rc-slider": "^8.6.13",
     "react": "16.8.6",
     "react-dom": "16.8.6",
+    "react-dom-confetti": "^0.1.1",
     "react-dropzone": "^10.1.5",
     "react-helmet": "6.0.0-beta",
     "react-intl": "2.8.0",
