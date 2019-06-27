@@ -41,7 +41,7 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
   }
 
   if (entry.user_id !== user.id) {
-    return  <Redirect to={`/vote/${entry.id}`} />
+    return <Redirect to={{ pathname: `/vote/${entry.id}` }} />
   }
 
   const [requirements] = useDRs({})

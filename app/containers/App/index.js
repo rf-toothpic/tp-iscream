@@ -61,6 +61,7 @@ export function App () {
           <Route exact path='/account' component={Auth} />
           <PrivateRoute exact path='/leaderboard' component={Leaderboard} isAuthenticated={isAuthenticated()} />
           {/* <PrivateRoute exact path='/ballot/:ballotId' component={Ballot} isAuthenticated={isAuthenticated()} /> */}
+          <PrivateRoute exact path='/vote/:id' component={Vote} isAuthenticated={isAuthenticated()} />
           <PrivateRoute exact path='/entry/:id' component={Entry} isAuthenticated={isAuthenticated()} />
           <PrivateRoute exact path='/entry/:id/votes' component={Vote} isAuthenticated={isAuthenticated()} />
           <PrivateRoute exact path='/entry' component={Entry} isAuthenticated={isAuthenticated()} />
