@@ -93,7 +93,7 @@ const Nav = ({ container, children }) => {
         <UnstyledLink to='/dietary-requirements'>
           <ActiveListItem to='/dietary-requirements'>
             <ListItemIcon> <MailIcon /></ListItemIcon>
-            <ListItemText primary='Dietary Requirements asdf' />
+            <ListItemText primary='Dietary Requirements' />
           </ActiveListItem>
         </UnstyledLink>
       </List>
