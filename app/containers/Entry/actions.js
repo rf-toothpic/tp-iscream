@@ -24,13 +24,13 @@ export function createEntry (payload) {
 }
 export function createEntrySuccess (payload) {
   return {
-    type: CREATE_ENTRY,
+    type: CREATE_ENTRY_SUCCESS,
     payload
   }
 }
 export function createEntryFailure (payload) {
   return {
-    type: CREATE_ENTRY,
+    type: CREATE_ENTRY_FAILURE,
     payload
   }
 }
@@ -79,13 +79,13 @@ export function updateEntry (payload) {
 }
 export function updateEntrySuccess (payload) {
   return {
-    type: UPDATE_ENTRY,
+    type: UPDATE_ENTRY_SUCCESS,
     payload
   }
 }
 export function updateEntryFailure (error) {
   return {
-    type: UPDATE_ENTRY,
+    type: UPDATE_ENTRY_FAILURE,
     error
   }
 }

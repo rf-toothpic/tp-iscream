@@ -1,8 +1,9 @@
 import Button from 'components/Button'
-import TextField from '@material-ui/core/TextField'
+import TextField from 'components/TextField'
 import PropTypes from 'prop-types'
 import React from 'react'
 import AuthPage from 'components/AuthPage'
+// import VoteButton from 'components/VoteButton'
 
 import styles from './styles.css'
 
@@ -48,45 +49,53 @@ const AuthView = ({ userLogin, loading, error, email, password, onChange }) => {
 
   return (
     <form onSubmit={doLogin}>
-      <AuthPage>
-        <TextField
-          label='Email'
-          value={email}
-          error={!!error}
-          onChange={onChange}
-          name='email'
-          type='email'
-          required
-          className={styles.input}
-          style={inlineStyle.input}
-          autoFocus
-        />
-        <TextField
-          label='Password'
-          value={password}
-          onChange={onChange}
-          error={!!error}
-          type='password'
-          name='password'
-          required
-          className={styles.input}
-          style={inlineStyle.input}
-        />
+      <AuthPage left={
+        <>
+          <TextField
+            label='Email'
+            value={email}
+            error={!!error}
+            onChange={onChange}
+            name='email'
+            type='email'
+            required
+            className={styles.input}
+            style={inlineStyle.input}
+            InputProps={{ disableUnderline: true }}
+            autoFocus
+          />
+          <TextField
+            label='Password'
+            value={password}
+            onChange={onChange}
+            error={!!error}
+            type='password'
+            name='password'
+            required
+            className={styles.input}
+            style={inlineStyle.input}
+            InputProps={{ disableUnderline: true }}
+          />
 
-        {error && error.message}
+          {error && error.message}
 
-        <Button
-          variant='contained'
-          disabled={loading}
-          color='primary'
-          style={inlineStyle.loginButton}
-          loading={loading}
-          onClick={doLogin}
-          type='submit'
-        >
+          <Button
+            variant='contained'
+            disabled={loading}
+            color='primary'
+            style={inlineStyle.loginButton}
+            loading={loading}
+            onClick={doLogin}
+            type='submit'
+          >
             Login
-        </Button>
-      </AuthPage>
+          </Button>
+        </>
+      } right={
+        <>
+          <Button href='/signup'>Sign up</Button>
+        </>
+      } />
     </form>
   )
 }

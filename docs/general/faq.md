@@ -40,7 +40,7 @@ The fix is to kill the process and rerun `npm start`.
     ps aux | grep node
     ```
 
-    > This will return the PID as the value following your username:
+    > This will return the PID as the values following your username:
     >
     > ```Shell
     > janedoe    29811  49.1  2.1  3394936 356956 s004  S+    4:45pm   2:40.07 node server

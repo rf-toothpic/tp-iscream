@@ -49,10 +49,7 @@ export function userLoginRequestSuccess (response) {
 export function userLoginRequestFailure (error) {
   return {
     type: LOGIN_REQUEST_FAILURE,
-    payload: {
-      error
-    },
-    error: new Error(error)
+    error: error
   }
 }
 

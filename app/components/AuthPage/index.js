@@ -20,10 +20,12 @@ const Page = styled.div`
   text-align: center;
 `
 
-const AuthPage = props => (
+const AuthPage = ({left, right}) => (
   <Page className={styles.formContainer}>
-    <a href='/login'><img src={logo} className={styles.logo} /></a>
-    {props.children}
+    {/*<a href='/login'><img src={logo} className={styles.logo} /></a>*/}
+
+    {left}
+    {right}
   </Page>
 )
 

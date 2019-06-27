@@ -1,63 +1,63 @@
 
 const user = {
-  id: 0,
+  id: '0',
   name: 'jurgen klopp',
   email: 'jurgen@oraleye.com',
-  dietaryRequirements: '1,2,3,4'
+  dietary_requirements: '1,2,3,4'
 }
 const user1 = {
-  id: 1,
+  id: '1',
   name: 'roberto firmino',
   email: 'bobby@oraleye.com',
-  dietaryRequirements: '5,6'
+  dietary_requirements: '5,6'
 }
 const user2 = {
-  id: 2,
+  id: '2',
   name: 'steven gerrard',
   email: 'gerrard@oraleye.com',
-  dietaryRequirements: ''
+  dietary_requirements: ''
 }
 const entry = {
-  id: 0,
+  id: '0',
   date: new Date(),
-  allergens: [1, 2, 5, 6],
+  dietary_requirements: ['fish', 'eggs'],
   name: 'Entry 1',
   chef: 2
 
 }
 const entry1 = {
-  id: 1,
+  id: '1',
   date: new Date(),
-  allergens: [1, 2],
+  dietary_requirements: ['nuts', 'soybean'],
   name: 'Entry 2',
   chef: 1
 }
 
 const vote = {
-  id: 0,
+  id: '0',
   entry_id: 0,
   complexity: 5,
   taste: 8,
   quantity: 2,
-  user_id: 0,
+  user_id: 0
 }
 
 const vote1 = {
-  id: 1,
+  id: '1',
   entry_id: 0,
   complexity: 3,
   taste: 2,
   quantity: 5,
-  user_id: 1,
+  user_id: 1
 }
 
 const vote2 = {
-  id: 2,
+  id: '2',
   entry_id: 1,
   complexity: 8,
   taste: 8,
   quantity: 4,
-  user_id: 0,
+  user_id: 0
 }
 
 const mocks = (name, obj) => ({

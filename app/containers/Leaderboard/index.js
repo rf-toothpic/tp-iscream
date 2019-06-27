@@ -37,6 +37,7 @@ export function Leaderboard ( ) {
   const param = qs.parse(window.location.search).type
   const [type, setType] = useState(param)
   if (!type || type !== param) {
+    console.log(type, param)
     return <Redirect to={`/leaderboard?type=${type || 'table'}`} />
   }
 

@@ -6,6 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
+import ToothpicTheme from '@toothpic/utils/es/theme'
 import PrivateRoute from 'components/PrivateRoute'
 import Auth from 'containers/Auth'
 // import makeSelectAuth from 'containers/Auth/selectors'
@@ -13,6 +14,7 @@ import Auth from 'containers/Auth'
 import Entry from 'containers/Entry'
 import Leaderboard from 'containers/Leaderboard'
 import Logout from 'containers/Logout'
+import Vote from 'containers/Vote'
 
 import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
@@ -26,8 +28,6 @@ import Footer from 'components/Footer'
 import { isAuthenticated } from 'utils/localstorage'
 
 import { useInjectSaga } from 'utils/injectSaga'
-
-// import { fetchUser } from 'containers/Auth/actions'
 
 import GlobalStyle from '../../global-styles'
 
@@ -44,43 +44,33 @@ const AppWrapper = styled.div`
 
 export function App () {
   useInjectSaga({ key: 'auth', saga: authSaga })
-  // useEffect(() => {
-  //   fetchUser()
-  // }, [user])
 
   return (
-    <AppWrapper>
-      <Helmet
-        titleTemplate='Toothpic Voting'
-        defaultTitle='Toothpic Voting'
-      >
-        <meta name='description' content='Toothpic Voting' />
-      </Helmet>
-      <Switch>
-        <Route exact path='/logout' component={Logout} />
-        <Route exact path='/login' component={Auth} />
-        <Route exact path='/signup' component={Auth} />
-        <Route exact path='/account' component={Auth} />
-        <PrivateRoute exact path='/leaderboard' component={Leaderboard} isAuthenticated={isAuthenticated()} />
-        {/* <PrivateRoute exact path='/ballot/:ballotId' component={Ballot} isAuthenticated={isAuthenticated()} /> */}
-        <PrivateRoute exact path='/entry/:id' component={Entry} isAuthenticated={isAuthenticated()} />
-        <PrivateRoute exact path='/entry' component={Entry} isAuthenticated={isAuthenticated()} />
-        <Route exact path='/' component={Auth} />
-        <Route path='' component={NotFoundPage} />
-      </Switch>
-      <Footer />
-      <GlobalStyle />
-    </AppWrapper>
+    <ToothpicTheme>
+      <AppWrapper>
+        <Helmet
+          titleTemplate='Toothpic Voting'
+          defaultTitle='Toothpic Voting'
+        >
+          <meta name='description' content='Toothpic Voting' />
+        </Helmet>
+        <Switch>
+          <Route exact path='/logout' component={Logout} />
+          <Route exact path='/login' component={Auth} />
+          <Route exact path='/signup' component={Auth} />
+          <Route exact path='/account' component={Auth} />
+          <PrivateRoute exact path='/leaderboard' component={Leaderboard} isAuthenticated={isAuthenticated()} />
+          {/* <PrivateRoute exact path='/ballot/:ballotId' component={Ballot} isAuthenticated={isAuthenticated()} /> */}
+          <PrivateRoute exact path='/entry/:id' component={Entry} isAuthenticated={isAuthenticated()} />
+          <PrivateRoute exact path='/entry/:id/votes' component={Vote} isAuthenticated={isAuthenticated()} />
+          <PrivateRoute exact path='/entry' component={Entry} isAuthenticated={isAuthenticated()} />
+          <Route exact path='/' component={Auth} />
+          <Route path='' component={NotFoundPage} />
+        </Switch>
+        <Footer />
+        <GlobalStyle />
+      </AppWrapper>
+    </ToothpicTheme>
   )
 }
-
-// const mapStateToProps = createStructuredSelector({
-//   auth: makeSelectAuth()
-// })
-//
-// function mapDispatchToProps (dispatch) {
-//   return { fetchUser: () => dispatch(fetchUser()) }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App)
 export default App

@@ -1,10 +1,11 @@
-import AllergensList from 'components/AllergensList'
 import Button from 'components/Button'
-import TextField from '@material-ui/core/TextField'
-import Allergens from 'containers/Allergens'
+import TextField from 'components/TextField'
+import DRList from 'containers/DR'
 import PropTypes from 'prop-types'
 import React from 'react'
 import AuthPage from 'components/AuthPage'
+import { clearToken } from 'utils/localstorage'
+import { Redirect } from 'react-router-dom'
 
 import styles from './styles.css'
 
@@ -40,46 +41,53 @@ const inlineStyle = {
   }
 }
 
-const SignupView2 = ({ createUser, loading, error, email, password, name, allergens, onChange }) => {
+const SignupView2 = ({ createUser, loading, error, email, password, nickname, dietary_requirements, onChange }) => {
   const doUpdate = (e) => {
     e.preventDefault()
-    createUser({ email, password, allergens, name })
+    createUser({ email, password, dietary_requirements, nickname })
+  }
+  if (!email) {
+    clearToken()
+    console.log('signup')
+    return <Redirect to='/signup' />
   }
 
   return (
     <div className={styles.cardContainer}>
       <form onSubmit={doUpdate}>
-        <AuthPage>
+        <AuthPage left={
+          <>
+            <TextField
+              label='Nickname'
+              value={nickname}
+              error={!!error}
+              onChange={onChange}
+              name='nickname'
+              type='text'
+              required
+              className={styles.input}
+              style={inlineStyle.input}
+              autoFocus
+            />
 
-          <TextField
-            label='Name'
-            value={name}
-            error={!!error}
-            onChange={onChange}
-            name='name'
-            type='text'
-            required
-            className={styles.input}
-            style={inlineStyle.input}
-            autoFocus
-          />
+            {/* eslint-disable-next-line camelcase */}
+            <DRList selected={dietary_requirements} onListChange={onChange} />
 
-          <Allergens selected={allergens} onChange={onChange} />
+            {error && error.message}
 
-          {error && error.message}
-
-          <Button
-            variant='contained'
-            disabled={loading}
-            color='primary'
-            style={inlineStyle.signupButton}
-            loading={loading}
-            onClick={doUpdate}
-            type='submit'
-          >
-              Finish
-          </Button>
-        </AuthPage>
+            <Button
+              variant='contained'
+              disabled={loading}
+              color='primary'
+              style={inlineStyle.signupButton}
+              loading={loading}
+              onClick={doUpdate}
+              type='submit'
+            >
+            Finish
+            </Button>
+          </>
+        } />
       </form>
     </div>
   )

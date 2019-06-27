@@ -16,7 +16,7 @@ import {
   FETCH_USERS_SUCCESS,
   LOGIN_REQUEST,
   LOGIN_REQUEST_FAILURE,
-  LOGIN_REQUEST_SUCCESS,
+  LOGIN_REQUEST_SUCCESS, SIGNUP_REQUEST, SIGNUP_REQUEST_FAILURE, SIGNUP_REQUEST_SUCCESS,
 } from './constants'
 
 export const initialState = {
@@ -43,6 +43,15 @@ const authReducer = (state = initialState, action) =>
         break
       case LOGIN_REQUEST_FAILURE:
         loginRequestFailure(draft, action)
+        break
+      case SIGNUP_REQUEST:
+        signupRequest(draft, action)
+        break
+      case SIGNUP_REQUEST_SUCCESS:
+        signupRequestSuccess(draft, action)
+        break
+      case SIGNUP_REQUEST_FAILURE:
+        signupRequestFailure(draft, action)
         break
       case CLEAR_SESSION_DATA:
         clearSessionData(draft, action)
@@ -89,9 +98,9 @@ function loginRequestSuccess (state, { payload }) {
   state.user = payload
 }
 
-function loginRequestFailure (state, { error }) {
+function loginRequestFailure (state, { error, ...rest }) {
   state.loading = false
-  state.error = error
+  state.error = error && error.message
 }
 
 /*
@@ -105,7 +114,7 @@ function signupRequest (state) {
 
 function signupRequestSuccess (state, { payload }) {
   state.loading = false
-  state.authenticationComplete = false
+  state.authenticationComplete = true
   state.user = payload
 }
 

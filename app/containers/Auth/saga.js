@@ -2,37 +2,41 @@
 // import { fetchAssessor } from 'containers/Dashboard/saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { loginUser, signUpUser, fetchUser, fetchUsers } from 'services/API'
-import { setToken } from 'utils/localstorage'
+import { setToken, setUserId } from 'utils/localstorage'
 import {
   userLoginRequestFailure,
   userLoginRequestSuccess,
   userUpdateUserRequestFailure,
   userUpdateUserRequestSuccess,
   fetchUserSuccess,
-  fetchUserFailure, userSignupRequestSuccess, userLoginRequest, fetchUsersSuccess, fetchUsersFailure,
+  fetchUserFailure, userSignupRequestSuccess, fetchUsersSuccess, fetchUsersFailure
 } from './actions'
 
 import {
   LOGIN_REQUEST,
   UPDATE_USER_REQUEST,
-  SIGNUP_REQUEST, FETCH_USER, FETCH_USERS,
+  SIGNUP_REQUEST,
+  FETCH_USERS
 } from './constants'
 
 export function * loginRequest ({ email, password }) {
   try {
-    const loginData = yield call(loginUser, email, password)
+    const loginData = yield loginUser(email, password)
     setToken(loginData.auth_token)
+    setUserId(loginData.id)
     yield put(userLoginRequestSuccess(loginData))
   } catch (e) {
     yield put(userLoginRequestFailure(e))
   }
 }
 
-export function * signupRequest (user) {
+export function * signupRequest ({ payload: user }) {
   try {
-    const data = yield call(signUpUser, user)
+    const data = yield signUpUser(user)
+    setToken(data.auth_token)
+    setUserId(loginData.id)
     yield put(userSignupRequestSuccess(data))
-    yield put(userLoginRequest({ email: user.email, password: user.password }))
+    // yield put(userLoginRequest({ email: user.email, password: user.password }))
   } catch (e) {
     yield put(userLoginRequestFailure(e))
   }

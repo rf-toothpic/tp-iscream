@@ -55,7 +55,7 @@ import saga from './saga';
 
 // ...
 
-// `mode` is an optional argument, default value is `DAEMON`
+// `mode` is an optional argument, default values is `DAEMON`
 const withSaga = injectSaga({ key: 'yourcomponent', saga, mode: DAEMON });
 
 export default compose(
@@ -65,7 +65,7 @@ export default compose(
 
 A `mode` argument can be one of three constants (import them from `utils/constants`):
 
-- `DAEMON` (default value) — starts a saga on component mount and never cancels it or starts again;
+- `DAEMON` (default values) — starts a saga on component mount and never cancels it or starts again;
 - `RESTART_ON_REMOUNT` — starts a saga when a component is being mounted
   and cancels with `task.cancel()` on component un-mount for improved performance;
 - `ONCE_TILL_UNMOUNT` — behaves like `RESTART_ON_REMOUNT` but never runs the saga again.

@@ -1,5 +1,6 @@
+import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { fetchUsers, getEntries, getVotes } from 'services/API/index'
+import { fetchUsers, getEntries, getVotes, fetchDietaryRequirements, fetchUser } from 'services/API/index'
 
 const REFRESH_TIME = 10000
 
@@ -14,6 +15,7 @@ export const useAPIRefresh = ({ sortBy = 'name', paused = false, dataFn = async 
 
   const cancel = useEffect(() => {
     fetchData()
+    console.log(paused)
     if (!paused) {
       setTimeout(() => updateCount(count + 1), REFRESH_TIME)
     }
@@ -50,9 +52,27 @@ export const useEntriesWithUsersAndVotesList = ({ sortBy = 'name', paused = true
   const [votes] = useVotesList({ entryId: 0 })
   const ret = entries.map(ent => {
     ent.user = _.find(users, user => user.id === ent.chef)
-
+    ent.votes = _.filter(votes, (v) => v.competition_entry_id === ent.id)
     return ent
   })
   return [ret]
   // return useAPIRefresh({ dataFn: getEntries, sortBy, paused })
+}
+
+export const useDRs = ({ sortBy = 'name', paused = true }) => {
+  const [drs] = useAPIRefresh({ dataFn: fetchDietaryRequirements, paused })
+  return [drs]
+}
+
+export const useCurrentUser = (id) => {
+
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    fetchUser(id).then((user) => {
+      setUser(user)
+    })
+  }, [id])
+
+  return user
 }

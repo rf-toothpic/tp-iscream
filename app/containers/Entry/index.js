@@ -13,6 +13,7 @@ import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { createStructuredSelector } from 'reselect'
 import { compose } from 'redux'
+import { useDRs } from 'services/API/hooks'
 
 import { useInjectSaga } from 'utils/injectSaga'
 import { useInjectReducer } from 'utils/injectReducer'
@@ -26,15 +27,24 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
   useInjectSaga({ key: 'entry', saga })
 
   useEffect(() => {
-    getEntry(match.params.id)
+    if (match.params.id) {
+      getEntry(match.params.id)
+    }
   }, [match.params.id])
 
   const [editable, setEditable] = useState(!match.params.id)
-  const [id] = useState(match.params ? match.params.id || null : null)
 
+  console.log(entry, match.params.id)
   if (entry.id && !match.params.id) {
-    return <Redirect to={/entry/`${id}`} />
+    return <Redirect to={`/entry/${entry.id}`} />
   }
+
+  const [requirements] = useDRs({})
+
+  const createEntry = (data) => {
+    onSubmit(data)
+  }
+
 
   return (
     <div>
@@ -43,7 +53,8 @@ export function Entry ({ onSubmit, getEntry, match, entry }) {
         <meta name='description' content='New Entry' />
       </Helmet>
       {!editable && <Button onClick={() => setEditable(!editable)}>Edit</Button>}
-      <CreateEntryForm entry={entry} editable={editable || !match.params.id} onSubmit={onSubmit} />
+      {!match.params.id && <CreateEntryForm drList={requirements} entry={null} onSubmit={createEntry} />}
+      {match.params.id && <CreateEntryForm drList={requirements} entry={entry} onSubmit={createEntry} />}
     </div>
   )
 }
@@ -53,13 +64,16 @@ Entry.propTypes = {
 }
 
 const mapStateToProps = createStructuredSelector({
-  entry: selectEntry(),
+  entry: selectEntry()
 })
 
 function mapDispatchToProps (dispatch) {
   return {
     dispatch,
-    onSubmit: (data) => dispatch(data.id ? updateEntry(data) : createEntry(data)),
+    onSubmit: (data) => {
+      console.log(data, createEntry(data))
+      dispatch(data.id ? updateEntry(data) : createEntry(data))
+    },
     getEntry: (id) => dispatch(getEntry(id))
   }
 }

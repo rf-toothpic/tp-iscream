@@ -74,7 +74,7 @@ const Nav = ({ container, children }) => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <UnstyledLink to='/leaderboard'>
+        <UnstyledLink to='/leaderboard?type=table'>
           <ActiveListItem to='/leaderboard'>
             <ListItemIcon><InboxIcon /></ListItemIcon>
             <ListItemText primary='Leaderboard' />
@@ -90,10 +90,10 @@ const Nav = ({ container, children }) => {
             <ListItemText primary='Create Entry' />
           </ActiveListItem>
         </UnstyledLink>
-        <UnstyledLink to='/allergens'>
-          <ActiveListItem to='/allergens'>
+        <UnstyledLink to='/dietary-requirements'>
+          <ActiveListItem to='/dietary-requirements'>
             <ListItemIcon> <MailIcon /></ListItemIcon>
-            <ListItemText primary='Allergens' />
+            <ListItemText primary='Dietary Requirements' />
           </ActiveListItem>
         </UnstyledLink>
       </List>

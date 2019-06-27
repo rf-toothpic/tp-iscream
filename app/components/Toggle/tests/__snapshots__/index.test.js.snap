@@ -5,12 +5,12 @@ exports[`<Toggle /> should contain default text 1`] = `
   class="Select-sc-1sm01tk-0 wIjFa"
 >
   <option
-    value="en"
+    values="en"
   >
     someContent
   </option>
   <option
-    value="de"
+    values="de"
   >
     someOtherContent
   </option>

@@ -8,12 +8,12 @@ exports[`<LocaleToggle /> should match the snapshot 1`] = `
     class="Select-sc-1sm01tk-0 wIjFa"
   >
     <option
-      value="en"
+      values="en"
     >
       en
     </option>
     <option
-      value="de"
+      values="de"
     >
       de
     </option>

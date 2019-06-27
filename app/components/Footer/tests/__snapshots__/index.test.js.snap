@@ -16,15 +16,15 @@ exports[`<Footer /> should render and match the snapshot 1`] = `
       <select
         className="Select-sc-1sm01tk-0 wIjFa"
         onChange={[Function]}
-        value="en"
+        values="en"
       >
         <option
-          value="en"
+          values="en"
         >
           en
         </option>
         <option
-          value="de"
+          values="de"
         >
           de
         </option>
@@ -33,8 +33,8 @@ exports[`<Footer /> should render and match the snapshot 1`] = `
   </section>
   <section>
     <span>
-      
-      Made with love by 
+
+      Made with love by
       <a
         className="A-br8h0y-0 dwVNvo"
         href="https://twitter.com/mxstbr"
@@ -42,7 +42,7 @@ exports[`<Footer /> should render and match the snapshot 1`] = `
         Max Stoiber
       </a>
       .
-    
+
     </span>
   </section>
 </footer>

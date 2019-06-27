@@ -50,7 +50,7 @@ exports[`<HomePage /> should render and match the snapshot 1`] = `
             id="username"
             placeholder="mxstbr"
             type="text"
-            value=""
+            values=""
           />
         </label>
       </form>

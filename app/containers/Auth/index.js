@@ -30,7 +30,7 @@ export class Auth extends React.Component {
     this.isLoggedIn = this.isLoggedIn.bind(this)
     this.enterEmail = this.enterEmail.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.state = { email: '', password: '', allergens: [], name: '' }
+    this.state = { email: '', password: '', dietary_requirements: [], nickname: '' }
   }
 
   componentWillMount () {
@@ -40,7 +40,6 @@ export class Auth extends React.Component {
   }
 
   onChange (e) {
-    console.log(e)
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -63,10 +62,11 @@ export class Auth extends React.Component {
       userLoginRequest,
       signupRequest,
       user: { loading, ...user },
-      location
+      location,
+      authenticationComplete
     } = this.props
 
-    const { email, password, allergens, name, showAccount } = this.state
+    const { email, password, dietary_requirements, nickname, showAccount } = this.state
 
     if (showAccount && location.pathname !== '/account') {
       return <Redirect to='/account' />
@@ -76,7 +76,7 @@ export class Auth extends React.Component {
       return (
         <Redirect
           to={{
-            pathname: showAccount ? '/account' : '/leaderboard',
+            pathname: authenticationComplete ? '/leaderboard' : '/account',
             state: this.state
           }}
         />
@@ -109,8 +109,8 @@ export class Auth extends React.Component {
         <SignupView2
           password={password}
           email={email}
-          allergens={allergens}
-          name={name}
+          dietary_requirements={dietary_requirements}
+          nickname={nickname}
           loading={loading}
           error={error}
           onChange={this.onChange}
@@ -134,7 +134,7 @@ Auth.propTypes = {
 }
 
 const mapStateToProps = state => {
-  return { user: state.auth }
+  return { user: state.auth, authenticationComplete: state.auth.authenticationComplete, error:state.auth.error }
 }
 
 const mapDispatchToProps = dispatch => ({

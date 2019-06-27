@@ -4,17 +4,14 @@ import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
-  console.log(isAuthenticated)
   return (
     <Route
       {...rest}
       render={props =>
         isAuthenticated ? (
-          <>
-            <Nav>
-              <Component {...props} />
-            </Nav>
-          </>
+          <Nav>
+            <Component {...props} />
+          </Nav>
         ) : (
           <Redirect
             to={{

@@ -138,7 +138,7 @@ deploy our application, we see this output:
 
   expect(received).toEqual(expected)
 
-  Expected value to equal:
+  Expected values to equal:
     5
   Received:
     6

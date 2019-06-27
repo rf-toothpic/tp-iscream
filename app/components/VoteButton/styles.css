@@ -1,0 +1,37 @@
+
+/*.myButton {*/
+/*  -moz-box-shadow:inset 0px -3px 7px 0px #f9442d;*/
+/*  -webkit-box-shadow:inset 0px -3px 7px 0px #f9442d;*/
+/*  box-shadow:inset 0px -3px 7px 0px #f9442d;*/
+/*  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f95843), color-stop(1, #f95843));*/
+/*  background:-moz-linear-gradient(top, #f9442d 5%, #f95843 100%);*/
+/*  background:-webkit-linear-gradient(top, #f9442d 5%, #f95843 100%);*/
+/*  background:-o-linear-gradient(top, #f9442d 5%, #f95843 100%);*/
+/*  background:-ms-linear-gradient(top, #f9442d 5%, #f95843 100%);*/
+/*  background:linear-gradient(to bottom, #f9442d 5%, #f95843 100%);*/
+/*  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9442d', endColorstr='#f95843',GradientType=0);*/
+/*  background-color:#f95843;*/
+/*  -moz-border-radius:3px;*/
+/*  -webkit-border-radius:3px;*/
+/*  border-radius:3px;*/
+/*  border:1px solid #0b0e07;*/
+/*  display:inline-block;*/
+/*  cursor:pointer;*/
+/*  color:#ffffff;*/
+/*  font-family:Arial;*/
+/*  font-size:15px;*/
+/*  padding:9px 23px;*/
+/*  text-decoration:none;*/
+/*  text-shadow:0px 1px 0px #263666;*/
+/*}*/
+/*.myButton:hover {*/
+/*  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f9442d), color-stop(1, #f95843));*/
+/*  background:-moz-linear-gradient(top, #f9442d 5%, #f95843 100%);*/
+/*  background:-webkit-linear-gradient(top, #f9442d 5%, #f95843 100%);*/
+/*  background:-o-linear-gradient(top, #f9442d 5%, #f95843 100%);*/
+/*  background:-ms-linear-gradient(top, #f9442d 5%, #f95843 100%);*/
+/*  background:linear-gradient(to bottom, #f9442d 5%, #f95843 100%);*/
+/*  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9442d', endColorstr='#f44842',GradientType=0);*/
+/*  background-color:#f9442d;*/
+/*}*/
+/*`*/
